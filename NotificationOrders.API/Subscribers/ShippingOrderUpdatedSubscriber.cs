@@ -20,12 +20,17 @@ namespace NotificationOrders.API.Subscribers
         {
             var connectionFactory = new ConnectionFactory
             {
-                HostName = "localhost"
+                HostName = "localhost",
+                UserName = "guest",
+                Password = "guest"
             };
 
             _connection = connectionFactory.CreateConnection("shipping-order-updated-consumer");
+
             _channel = _connection.CreateModel();
+
             _channel.ExchangeDeclare(TrackingsExchange, "topic", true, false);
+
             _channel.QueueDeclare(
                 queue: Queue,
                 durable: true,
@@ -33,6 +38,7 @@ namespace NotificationOrders.API.Subscribers
                 autoDelete: false);
 
             _channel.QueueBind(Queue, TrackingsExchange, RoutingKeySubscribe);
+
             _serviceProvider = serviceProvider;
         }
 
