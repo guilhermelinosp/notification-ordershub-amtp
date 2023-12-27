@@ -10,11 +10,14 @@
 *.userosscache
 *.sln.docstates
 
+.idea/
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
 # Mono auto generated files
 mono_crash.*
+*/appsettings.Development.json
+*/appsettings.Production.json
 
 # Build results
 [Dd]ebug/
@@ -37,7 +40,8 @@ bld/
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
-
+Visual Studio 2022/
+Visual Studio 2022Templates/
 # Visual Studio 2017 auto generated files
 Generated\ Files/
 

@@ -1,13 +1,15 @@
-name: "CodeQL Analysis"
+name: "CodeQL"
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
   schedule:
-    - cron: "0 0 * * *"
-
+    - cron: "* * * * *"
+    
 jobs:
   analyze:
     name: Analyze
@@ -18,20 +20,30 @@ jobs:
       security-events: write
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
 
+<<<<<<< HEAD
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
         languages: csharp
+=======
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: csharp
+>>>>>>> 43df009 (feat: structuring the project)
 
-    - name: Restore NuGet Packages
-      run: nuget restore
+      - name: Restore NuGet Packages
+        run: nuget restore
 
-    - name: Build
-      run: dotnet build --configuration Release
+      - name: Build
+        run: dotnet build --configuration Release
 
+<<<<<<< HEAD
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
       with:
@@ -45,3 +57,10 @@ jobs:
 
         # To fail the analysis if any alerts are found, set the 'fail-on-alert' option to true.
         # fail-on-alert: true
+=======
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          languages: csharp
+          paths: "."
+>>>>>>> 43df009 (feat: structuring the project)

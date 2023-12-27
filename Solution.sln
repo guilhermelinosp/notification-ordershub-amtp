@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationOrders.API", "NotificationOrders.API\NotificationOrders.API.csproj", "{6220B6E5-FEAE-46F2-8ED6-C987C0F1ED83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.OrdersHub.AMTP", "Notification.OrdersHub.AMTP\Notification.OrdersHub.AMTP.csproj", "{6220B6E5-FEAE-46F2-8ED6-C987C0F1ED83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

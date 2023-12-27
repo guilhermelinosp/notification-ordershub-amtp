@@ -1,15 +1,33 @@
 name: 'Dependency Review'
-on: [pull_request]
+
+on:
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
 
 jobs:
   dependency-review:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        dotnet-version: [6.0.x, 7.0.x, 8.0.x]
+
     steps:
       - name: 'Checkout Repository'
         uses: actions/checkout@v4
 
-      - name: 'Dependency Review'
+      - name: 'Setup .NET'
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: 'Restore Dependencies'
+        run: dotnet restore
+
+      - name: 'Run Dependency Review'
         uses: actions/dependency-review-action@v3
