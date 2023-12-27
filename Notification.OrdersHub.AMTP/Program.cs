@@ -6,9 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
 
-services.AddScoped<INotificationService, EmailService>();
+services.AddScoped<ISendGridService, SendGridService>();
 services.AddSendGrid(options => { options.ApiKey = builder.Configuration["SendGrid_ApiKey"]; });
-services.AddHostedService<ShippingOrderUpdatedSubscriber>();
+services.AddHostedService<NotificationSubscriber>();
 services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();

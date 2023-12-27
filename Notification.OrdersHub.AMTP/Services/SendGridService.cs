@@ -3,9 +3,9 @@ using SendGrid.Helpers.Mail;
 
 namespace Notification.OrdersHub.API.Infrastructure;
 
-public class EmailService(IConfiguration configuration, ISendGridClient client) : INotificationService
+public class SendGridService(IConfiguration configuration, ISendGridClient client) : ISendGridService
 {
-	public async Task Send(IEmailTemplate template)
+	public async Task Send(NotificationTemplate template)
 	{
 		var message = new SendGridMessage
 		{

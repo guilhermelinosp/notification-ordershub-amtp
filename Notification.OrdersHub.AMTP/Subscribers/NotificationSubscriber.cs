@@ -7,7 +7,7 @@ using Notification.OrdersHub.API.Models;
 
 namespace Notification.OrdersHub.API.Subscribers;
 
-public class ShippingOrderUpdatedSubscriber : BackgroundService
+public class NotificationSubscriber : BackgroundService
 {
 	private readonly IModel _channel;
 	private const string Queue = "notifications-service/shipping-order-updated";
@@ -15,7 +15,7 @@ public class ShippingOrderUpdatedSubscriber : BackgroundService
 	private readonly IServiceProvider _serviceProvider;
 	private const string TrackingsExchange = "trackings-service";
 
-	public ShippingOrderUpdatedSubscriber(IServiceProvider serviceProvider)
+	public NotificationSubscriber(IServiceProvider serviceProvider)
 	{
 		var connectionFactory = new ConnectionFactory
 		{
@@ -49,9 +49,9 @@ public class ShippingOrderUpdatedSubscriber : BackgroundService
 		{
 			var contentArray = eventArgs.Body.ToArray();
 			var contentString = Encoding.UTF8.GetString(contentArray);
-			var @event = JsonConvert.DeserializeObject<ShippingOrderUpdatedEvent>(contentString);
+			var @event = JsonConvert.DeserializeObject<EventShippingModel>(contentString);
 
-			Console.WriteLine($"Message ShippingOrderUpdatedEvent received with Code {@event.TrackingCode}");
+			Console.WriteLine($"Message EventShippingModel received with Code {@event.TrackingCode}");
 
 			Notify(@event).Wait(stoppingToken);
 
@@ -63,14 +63,14 @@ public class ShippingOrderUpdatedSubscriber : BackgroundService
 		return Task.CompletedTask;
 	}
 
-	private async Task Notify(ShippingOrderUpdatedEvent @event)
+	private async Task Notify(EventShippingModel @event)
 	{
 		using var scope = _serviceProvider.CreateScope();
 
-		var notificationService = scope.ServiceProvider.GetRequiredService<INotificationService>();
+		var notificationService = scope.ServiceProvider.GetRequiredService<ISendGridService>();
 
 		var template =
-			new ShippingOrderUpdateTemplate(@event.TrackingCode!, @event.ContactEmail!, @event.Description!);
+			new NotificationTemplate(@event.TrackingCode!, @event.ContactEmail!, @event.Description!);
 
 		await notificationService.Send(template);
 	}
