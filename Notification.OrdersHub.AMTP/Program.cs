@@ -1,4 +1,4 @@
-using Notification.OrdersHub.API.Infrastructure;
+using Notification.OrdersHub.API.Services;
 using Notification.OrdersHub.API.Subscribers;
 using SendGrid.Extensions.DependencyInjection;
 

@@ -1,4 +1,4 @@
-﻿namespace Notification.OrdersHub.API.Infrastructure;
+﻿namespace Notification.OrdersHub.API.Templates;
 
 public class NotificationTemplate(string trackingCode, string to, string description)
 {

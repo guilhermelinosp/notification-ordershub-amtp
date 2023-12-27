@@ -1,7 +1,8 @@
-﻿using SendGrid;
+﻿using Notification.OrdersHub.API.Templates;
+using SendGrid;
 using SendGrid.Helpers.Mail;
 
-namespace Notification.OrdersHub.API.Infrastructure;
+namespace Notification.OrdersHub.API.Services;
 
 public class SendGridService(IConfiguration configuration, ISendGridClient client) : ISendGridService
 {

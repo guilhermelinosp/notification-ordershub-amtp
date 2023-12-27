@@ -2,8 +2,9 @@
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
-using Notification.OrdersHub.API.Infrastructure;
 using Notification.OrdersHub.API.Models;
+using Notification.OrdersHub.API.Services;
+using Notification.OrdersHub.API.Templates;
 
 namespace Notification.OrdersHub.API.Subscribers;
 

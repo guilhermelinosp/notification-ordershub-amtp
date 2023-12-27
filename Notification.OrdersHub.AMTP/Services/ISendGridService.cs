@@ -1,4 +1,6 @@
-﻿namespace Notification.OrdersHub.API.Infrastructure;
+﻿using Notification.OrdersHub.API.Templates;
+
+namespace Notification.OrdersHub.API.Services;
 
 public interface ISendGridService
 {
