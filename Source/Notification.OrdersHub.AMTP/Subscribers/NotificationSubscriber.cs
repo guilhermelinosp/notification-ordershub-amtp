@@ -16,13 +16,15 @@ public class NotificationSubscriber : BackgroundService
 	private readonly IServiceProvider _serviceProvider;
 	private const string TrackingsExchange = "trackings-service";
 
-	public NotificationSubscriber(IServiceProvider serviceProvider)
+	public NotificationSubscriber(IServiceProvider serviceProvider, IConfiguration configuration)
 	{
+		_serviceProvider = serviceProvider;
+
 		var connectionFactory = new ConnectionFactory
 		{
-			HostName = "localhost",
-			UserName = "guest",
-			Password = "guest"
+			HostName = configuration["RabbitMQ_HostName"],
+			UserName = configuration["RabbitMQ_UserName"],
+			Password = configuration["RabbitMQ_Password"]
 		};
 
 		var connection = connectionFactory.CreateConnection("shipping-order-updated-consumer");
@@ -38,13 +40,11 @@ public class NotificationSubscriber : BackgroundService
 			false);
 
 		_channel.QueueBind(Queue, TrackingsExchange, RoutingKeySubscribe);
-
-		_serviceProvider = serviceProvider;
 	}
 
 	protected override Task ExecuteAsync(CancellationToken stoppingToken)
 	{
-		var consumer = new EventingBasicConsumer(_channel);
+		var consumer = new EventingBasicConsumer(_channel);	
 
 		consumer.Received += (sender, eventArgs) =>
 		{
