@@ -1,6 +1,6 @@
 ﻿namespace Notification.OrdersHub.API.Models;
 
-public class EventShippingModel
+public class NotificationModel
 {
 	public string? TrackingCode { get; set; }
 	public string? ContactEmail { get; set; }

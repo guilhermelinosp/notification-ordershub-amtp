@@ -49,9 +49,9 @@ public class NotificationSubscriber : BackgroundService
 		{
 			var contentArray = eventArgs.Body.ToArray();
 			var contentString = Encoding.UTF8.GetString(contentArray);
-			var @event = JsonConvert.DeserializeObject<EventShippingModel>(contentString);
+			var @event = JsonConvert.DeserializeObject<NotificationModel>(contentString);
 
-			Console.WriteLine($"Message EventShippingModel received with Code {@event.TrackingCode}");
+			Console.WriteLine($"Message NotificationModel received with Code {@event.TrackingCode}");
 
 			Notify(@event).Wait(stoppingToken);
 
@@ -63,7 +63,7 @@ public class NotificationSubscriber : BackgroundService
 		return Task.CompletedTask;
 	}
 
-	private async Task Notify(EventShippingModel @event)
+	private async Task Notify(NotificationModel @event)
 	{
 		using var scope = _serviceProvider.CreateScope();
 
