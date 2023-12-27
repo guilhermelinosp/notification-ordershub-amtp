@@ -15,12 +15,7 @@ services.AddSwaggerGen();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-	app.UseDeveloperExceptionPage();
-	configuration.AddUserSecrets<Program>();
-}
-
+if (app.Environment.IsDevelopment()) configuration.AddUserSecrets<Program>();
 
 app.UseHttpsRedirection();
 app.MapControllers();
